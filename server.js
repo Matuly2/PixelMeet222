@@ -241,7 +241,7 @@ app.get('/perfil-data/:username', auth, async (req, res) => {
             seguidores: usuario.seguidores.length,
             seguidos: usuario.seguidos.length,
             publicaciones: usuario.publicaciones.length,
-            imagenPerfil: usuario.imagenPerfil ? usuario.imagenPerfil.replace('public\\', '') : 'images/default-profile.png', // Ruta correcta para la imagen
+            imagenPerfil: usuario.imagenPerfil ? usuario.imagenPerfil.replace(/^public[\\/]/, '').replace(/\\/g, '/') : 'images/default-profile.png', // Ruta correcta para la imagen
         });
     } else {
         res.status(404).json({ message: 'Usuario no encontrado' });
@@ -257,7 +257,7 @@ app.get('/publicaciones-de-usuario/:username', auth, async (req, res) => {
     if (usuario) {
         const publicaciones = usuario.publicaciones.map(publicacion => ({
             _id: publicacion._id,
-            imagePath: publicacion.imagePath.replace('public\\', ''),
+            imagePath: publicacion.imagePath.replace(/^public[\\/]/, '').replace(/\\/g, '/'),
             meGustas: publicacion.meGustas,
             comentarios: publicacion.comentarios,
             username: username,
