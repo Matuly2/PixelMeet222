@@ -187,6 +187,7 @@ app.get('/perfil', auth, async (req, res) => {
     try {
         const usuarioId = req.session.userId;
         const usuario = await Usuario.findById(usuarioId);
+        const defaultProfileImage = 'public/images/default-profile.png';
 
         if (!usuario) {
             return res.status(404).json({ message: 'Usuario no encontrado' });
@@ -200,7 +201,7 @@ app.get('/perfil', auth, async (req, res) => {
             seguidores: usuario.seguidores.length,
             seguidos: usuario.seguidos.length,
             publicaciones: usuario.publicaciones.length,
-            imagenPerfil: usuario.imagenPerfil ? usuario.imagenPerfil.replace(/^public[\\/]/, '').replace(/\\/g, '/') : path.join(__dirname, 'public', 'images', 'default-profile.png'),
+            imagenPerfil: usuario.imagenPerfil ? usuario.imagenPerfil.replace(/^public[\\/]/, '').replace(/\\/g, '/') : defaultProfileImage.replace(/^public[\\/]/, '').replace(/\\/g, '/'),
             etiquetas: usuario.etiquetas,
             planDescargas: usuario.planDescargas
             
@@ -227,6 +228,8 @@ app.get('/perfil/:username', auth, async (req, res) => {
 app.get('/perfil-data/:username', auth, async (req, res) => {
     const username = req.params.username;
     const usuario = await Usuario.findOne({ username });
+    const defaultProfileImage = 'public/images/default-profile.png';
+
 
     if (usuario) {
         //ESTO ES LO QUE TENÍA YO
@@ -241,7 +244,7 @@ app.get('/perfil-data/:username', auth, async (req, res) => {
             seguidores: usuario.seguidores.length,
             seguidos: usuario.seguidos.length,
             publicaciones: usuario.publicaciones.length,
-            imagenPerfil: usuario.imagenPerfil ? usuario.imagenPerfil.replace(/^public[\\/]/, '').replace(/\\/g, '/') : path.join(__dirname, 'public', 'images', 'default-profile.png'),
+            imagenPerfil: usuario.imagenPerfil ? usuario.imagenPerfil.replace(/^public[\\/]/, '').replace(/\\/g, '/') : defaultProfileImage.replace(/^public[\\/]/, '').replace(/\\/g, '/'),
         });
     } else {
         res.status(404).json({ message: 'Usuario no encontrado' });
