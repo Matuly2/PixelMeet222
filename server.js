@@ -165,7 +165,7 @@ app.get('/publicaciones-usuario', auth, async (req, res) => {
         if (usuario) {
             const publicaciones = usuario.publicaciones.map(publicacion => ({
                 _id: publicacion._id,
-                imagePath: publicacion.imagePath.replace('public\\', ''),
+                imagePath: publicacion.imagePath.replace(/^public[\\/]/, '').replace(/\\/g, '/'),
                 meGustas: publicacion.meGustas,
                 comentarios: publicacion.comentarios,
                 username: usuario.username,

@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
     cargarEtiquetasUsuario().then(() => {
         console.log(etiquetasUsuario);
         cargarFeed();
-    }).catch(error => {
+    }).catch(error => { 
         console.error('Error al cargar las etiquetas del usuario:', error);
     });
 });
