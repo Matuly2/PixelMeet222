@@ -200,7 +200,7 @@ app.get('/perfil', auth, async (req, res) => {
             seguidores: usuario.seguidores.length,
             seguidos: usuario.seguidos.length,
             publicaciones: usuario.publicaciones.length,
-            imagenPerfil: usuario.imagenPerfil ? usuario.imagenPerfil.replace(/^public[\\/]/, '').replace(/\\/g, '/') : 'images/default-profile.png', // Ruta correcta para la imagen
+            imagenPerfil: usuario.imagenPerfil ? usuario.imagenPerfil.replace(/^public[\\/]/, '').replace(/\\/g, '/') : path.join(__dirname, 'public', 'images', 'default-profile.png'),
             etiquetas: usuario.etiquetas,
             planDescargas: usuario.planDescargas
             
@@ -241,7 +241,7 @@ app.get('/perfil-data/:username', auth, async (req, res) => {
             seguidores: usuario.seguidores.length,
             seguidos: usuario.seguidos.length,
             publicaciones: usuario.publicaciones.length,
-            imagenPerfil: usuario.imagenPerfil ? usuario.imagenPerfil.replace(/^public[\\/]/, '').replace(/\\/g, '/') : 'images/default-profile.png', // Ruta correcta para la imagen
+            imagenPerfil: usuario.imagenPerfil ? usuario.imagenPerfil.replace(/^public[\\/]/, '').replace(/\\/g, '/') : path.join(__dirname, 'public', 'images', 'default-profile.png'),
         });
     } else {
         res.status(404).json({ message: 'Usuario no encontrado' });
