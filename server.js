@@ -11,7 +11,7 @@ const port = process.env.port || 3000;
 
 //CONFIGURACIONES
 app.use(express.json());
-app.use(express.static('public'));
+app.use(express.static(path.resolve(__dirname, 'public')));
 app.use(cookieParser());
 app.use(session({
     secret: 'clave_mateo_sergio', 
